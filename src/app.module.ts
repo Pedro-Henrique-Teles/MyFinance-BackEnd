@@ -2,9 +2,9 @@ import { MiddlewareConsumer, Module } from '@nestjs/common';
 import * as cookieParser from 'cookie-parser';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { ConfigModule } from '@nestjs/config';
-import { User } from './entity/user.entity';
 import { UserController } from './user/user.controller';
 import { UserModule } from './user/user.module';
+import { modelProviders } from './idex';
 
 @Module({
   imports: [
@@ -16,7 +16,7 @@ import { UserModule } from './user/user.module';
       username: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      models: [User],
+      models: [...modelProviders],
       autoLoadModels: true,
       synchronize: process.env.NODE_ENV !== 'production', // Em produção, use migrations!
       logging: false,
@@ -29,9 +29,10 @@ import { UserModule } from './user/user.module';
         },
         afterDisconnect: () => {
           console.log('Conexão com o banco de dados foi encerrada.');
-        }
-      }
-    }), UserModule,
+        },
+      },
+    }),
+    UserModule,
   ],
   controllers: [UserController],
   providers: [],

@@ -13,7 +13,7 @@ module.exports = {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      cnpj: {
+      cpf: {
         type: DataTypes.STRING(11),
         allowNull: false,
         unique: true,
