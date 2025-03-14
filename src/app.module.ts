@@ -2,9 +2,8 @@ import { MiddlewareConsumer, Module } from '@nestjs/common';
 import * as cookieParser from 'cookie-parser';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { ConfigModule } from '@nestjs/config';
-import { UserController } from './user/user.controller';
 import { UserModule } from './user/user.module';
-import { modelProviders } from './idex';
+import { modelProviders } from '.';
 
 @Module({
   imports: [
@@ -34,11 +33,9 @@ import { modelProviders } from './idex';
     }),
     UserModule,
   ],
-  controllers: [UserController],
+  controllers: [],
   providers: [],
 })
-export class DatabaseModule {}
-
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(cookieParser()).forRoutes('*');
