@@ -4,7 +4,7 @@ const { DataTypes } = require('sequelize');
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up(queryInterface, Sequelize) {
+  async up(queryInterface) {
     await queryInterface.createTable('account', {
       id: {
         type: DataTypes.BIGINT,
@@ -35,5 +35,5 @@ module.exports = {
 
   down: async (queryInterface) => {
     await queryInterface.dropTable('account');
-  }
+  },
 };

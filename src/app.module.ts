@@ -7,7 +7,7 @@ import { modelProviders } from '.';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(), // Habilita o uso de variáveis do .env
+    ConfigModule.forRoot(),
     SequelizeModule.forRoot({
       dialect: 'postgres',
       host: process.env.DB_HOST,
