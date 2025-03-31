@@ -54,6 +54,7 @@ export class PostLoginUserDTO {
     type: String,
     description: 'Digite sua senha',
   })
+  @IsNotEmpty({ message: 'A Senhanão pode estar vazia.' })
   @MinLength(9, { message: 'Sua senha deve ter no mínimo 9 caracteres' })
   password: string;
 }

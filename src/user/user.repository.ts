@@ -35,10 +35,11 @@ export class UserRepository {
     const validationUser = await this.userEntity.findOne({
       where: { cpf },
     });
+    
     if (!validationUser) {
       throw new UnauthorizedException('Usuário Não Encontrado');
     }
-    const isMatch = await bcrypt.compare(password, validationUser.password);
+    const isMatch = await bcrypt.compare(password, validationUser.dataValues.password);
     if (!isMatch) {
       throw new UnauthorizedException('Senha Inválida');
     }
