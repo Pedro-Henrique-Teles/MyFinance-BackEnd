@@ -5,5 +5,9 @@ export const myFinanceProviders = [
     provide: 'USER_PROVIDER',
     useValue: User,
   },
+  {
+    provide: 'AUTH_PROVIDER',
+    useValue: User,
+  },
 ];
 export const modelProviders = myFinanceProviders.map((item) => item.useValue);
