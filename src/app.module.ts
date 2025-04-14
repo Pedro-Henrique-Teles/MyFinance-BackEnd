@@ -5,6 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import { UserModule } from './user/user.module';
 import { modelProviders } from '.';
 import { AuthModule } from './auth/auth.module';
+import { User } from './entity/user.entity';
 
 @Module({
   imports: [
@@ -16,7 +17,7 @@ import { AuthModule } from './auth/auth.module';
       username: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      models: [...modelProviders],
+      models: [User],
       autoLoadModels: true,
       synchronize: process.env.NODE_ENV !== 'production', // Em produção, use migrations!
       logging: false,
