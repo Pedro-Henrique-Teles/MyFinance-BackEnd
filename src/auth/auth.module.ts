@@ -5,9 +5,21 @@ import { AuthRepository } from './auth.repository';
 import { User } from 'src/entity/user.entity';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { UserModule } from 'src/user/user.module';
+import { JwtModule } from '@nestjs/jwt';
+import { ConfigService } from '@nestjs/config';
 
 @Module({
-  imports: [SequelizeModule.forFeature([User]), UserModule],
+  imports: [
+    SequelizeModule.forFeature([User]),
+    JwtModule.registerAsync({
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => ({
+        secret: config.getOrThrow('JWT_SECRET'),
+        signOptions: {expiresIn: '1d'}
+      }),
+    }),
+    UserModule,
+  ],
   controllers: [AuthController],
   providers: [AuthService, AuthRepository],
 })
