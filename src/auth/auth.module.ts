@@ -7,20 +7,24 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import { UserModule } from 'src/user/user.module';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
+import { PassportModule } from '@nestjs/passport';
+import { JwtStrategy } from './jwt.strategy';
 
 @Module({
   imports: [
     SequelizeModule.forFeature([User]),
+    PassportModule,
     JwtModule.registerAsync({
       inject: [ConfigService],
       useFactory: (config: ConfigService) => ({
         secret: config.getOrThrow('JWT_SECRET'),
-        signOptions: {expiresIn: '1d'}
+        signOptions: { expiresIn: '1d' },
       }),
     }),
     UserModule,
   ],
   controllers: [AuthController],
-  providers: [AuthService, AuthRepository],
+  providers: [AuthService, AuthRepository, JwtStrategy],
+  exports: [JwtStrategy],
 })
 export class AuthModule {}
