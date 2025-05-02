@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
 import { PostCreateUserDTO } from 'src/dto/user.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @ApiTags('User')
@@ -21,6 +21,7 @@ export class UserController {
 
   @Get('private')
   @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth('JWT-auth')
   getPrivateRoute() {
     return 'Essa é uma rota Privada';
   }

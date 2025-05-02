@@ -15,7 +15,17 @@ async function bootstrap() {
     .setDescription('Uma Api para a aplicação MyFinance')
     .setVersion('1.0')
     .addTag('Schema')
-    .addBearerAuth() // Adicionar segurança com JWT
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+        name: 'Authorization',
+        description: 'Insira o token JWT no formato: Bearer <token>',
+        in: 'header',
+      },
+      'JWT-auth', // Nome da autenticação, usado em @ApiBearerAuth()
+    )
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, documentFactory);

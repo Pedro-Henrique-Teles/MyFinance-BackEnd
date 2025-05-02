@@ -3,7 +3,6 @@ import * as cookieParser from 'cookie-parser';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { ConfigModule } from '@nestjs/config';
 import { UserModule } from './user/user.module';
-import { modelProviders } from '.';
 import { AuthModule } from './auth/auth.module';
 import { User } from './entity/user.entity';
 
